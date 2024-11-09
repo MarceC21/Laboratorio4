@@ -21,7 +21,7 @@ class HardwareRadio implements RadioC {
     }
 
     @Override
-    public void modo(int opcion) {
-        //
+    public void modo(Modo nuevoModo) {
+        modoActual = nuevoModo;
     }
 }

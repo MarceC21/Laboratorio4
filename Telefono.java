@@ -1,22 +1,33 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.StringBuilder;
 
 class Telefono extends Modo {
     private boolean conectado;
     private List<Contacto> contactosLista;
 
-    public Telefono() {
+    public Telefono(HardwareRadio radio) {
+        this.radio = radio;
         this.nombre = "Teléfono";
         this.conectado = false;
         this.contactosLista = new ArrayList<>();
     }
 
-    public void conectarDesconectar() {
-        //
+    public String conectarDesconectar() {
+        conectado = !conectado;
+        return conectado ? "Teléfono conectado" : "Teléfono desconectado";
     }
 
-    public void mostrarContactos() {
-        //
+    public String mostrarContactos() {
+        if (!contactosLista.isEmpty()) {
+            StringBuilder contactos = new StringBuilder("Lista de contactos:\n");
+            for (Contacto contacto : contactosLista) {
+                contactos.append(contacto).append("\n");
+            }
+            return contactos.toString();
+        } else {
+            return "No hay contactos en la lista.";
+        }
     }
 
     public void agregarContacto(Contacto contacto) {
@@ -24,5 +35,7 @@ class Telefono extends Modo {
     }
 
     @Override
-    public void cambiarModo() {}
+    public void cambiarModo() {
+        this.radio.modo(this);
+    }
 }

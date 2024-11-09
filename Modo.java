@@ -1,6 +1,8 @@
 abstract class Modo {
     protected String nombre;
 
+    public HardwareRadio radio;
+
     public String getNombre() {
         return nombre;
     }
