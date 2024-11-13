@@ -1,25 +1,23 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 class Radio extends Modo {
-    private List<HashMap<String, Double>> frequencyList;
+    private HashMap<Double, String> frequencyList;
     private String banda;
     private double frecuencia;
 
-    public Radio(List<HashMap<String, Double>> frequencyList, String banda, double frecuencia) {
-        this.frequencyList = frequencyList;
-        this.banda = banda;
-        this.frecuencia = frecuencia;
-    }
-
     public Radio() {
+        this.frequencyList = new HashMap<Double, String>();
+        this.banda = "FM";
+        this.frecuencia = 0.0;
     }
 
-    public List<HashMap<String, Double>> getFrequencyList() {
+    public HashMap<Double, String> getFrequencyList() {
         return frequencyList;
     }
 
-    public void setFrequencyList(List<HashMap<String, Double>> frequencyList) {
+    public void setFrequencyList(HashMap<Double, String> frequencyList) {
         this.frequencyList = frequencyList;
     }
 
@@ -50,7 +48,7 @@ class Radio extends Modo {
 
         // Validación de rango, suponiendo que estamos en la banda FM
         if (nuevaFrecuencia >= 87.5 && nuevaFrecuencia <= 108.0) {
-            setFrecuencia(nuevaFrecuencia);  // Asigna la nueva frecuencia si está en el rango
+            setFrecuencia(nuevaFrecuencia);
         } else if(nuevaFrecuencia<=87.5) {
             setFrecuencia(87.5);
         }else if (nuevaFrecuencia>108.0){
@@ -61,16 +59,12 @@ class Radio extends Modo {
     
 
     public void guardarEmisora(String nombre ,double frecuencia) {
-        HashMap<String, Double> estacion = new HashMap<>();
-        estacion.put(nombre, frecuencia);  // Asigna el nombre y la frecuencia
-        frequencyList.add(estacion);
+        this.frequencyList.put(frecuencia, nombre);
     }
-    public void cargarEmisora(double index) {
-        for (HashMap<String,Double> hashMap : frequencyList) {
-            for(Double frecuencia: hashMap.values()){
-                if(frecuencia.equals(index)){
-                    setFrecuencia(index);
-                }
+    public void cargarEmisora(double frecuencia) {
+        for (int i=0; i<=this.frequencyList.size(); i++) {
+            if (this.frequencyList.containsKey(frecuencia)) {
+                setFrecuencia(frecuencia);
             }
         }
     }
